@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Company extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +15,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'userName',
-        'email',
-        'password',
+        'companyName',
+        'description',
+        'address',
+        'email'
     ];
 
     /**
@@ -28,8 +27,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
     ];
 
     /**
@@ -40,4 +37,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Defines the relationship to company
+     */
+    public function companies() 
+    {
+        return $this->belongsToMany('App\Models\Company', 'company_users');
+    }
 }
