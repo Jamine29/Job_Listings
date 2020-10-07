@@ -28,14 +28,14 @@ class CompanyUsers extends Model
     ];
 
     /**
-     * Defines the relationship to user
+     * defines the relationship to user
      */
     public function users() {
         return $this->belongsToMany('App\Models\User');
     }
 
     /**
-     * Defines the relationship to company
+     * defines the relationship to company
      */
     public function companies() {
         return $this->belongsToMany('App\Models\Company');
