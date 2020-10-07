@@ -15,9 +15,9 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('companyName', 100);
+            $table->string('companyName', 150);
             $table->string('description', 250);
-            $table->string('address', 100);
+            $table->string('address', 150);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
