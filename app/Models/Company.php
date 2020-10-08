@@ -53,6 +53,6 @@ class Company extends Model
      */
     public function users() 
     {
-        return $this->belongsToMany('App\Models\User', 'company_user');
+        return $this->belongsToMany('App\Models\User', 'company_user', 'companyId', 'userId');
     }
 }

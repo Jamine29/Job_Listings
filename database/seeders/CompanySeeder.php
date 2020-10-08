@@ -17,5 +17,10 @@ class CompanySeeder extends Seeder
         Company::factory()
                 ->times(5)
                 ->create();
+
+        foreach(Company::all() as $company) {
+            $users =  \App\Models\User::inRandomOrder()->take(rand(1,4))->pluck('id');
+            $company->users()->attach($users);
+        }
     }
 }
