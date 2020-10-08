@@ -53,6 +53,20 @@ class Company extends Model
      */
     public function users() 
     {
-        return $this->belongsToMany('App\Models\User', 'company_user', 'companyId', 'userId');
+        return $this->belongsToMany('App\Models\User', 'company_user', 'companyId', 'userId')
+                        ->withTimestamps()
+                        ->withPivot(['isManager'])
+                        ->as('company_user');
+    }
+
+    /**
+     * Defines the relationship to users.
+     */
+    public function managers() 
+    {
+        return $this->belongsToMany('App\Models\User', 'company_user', 'companyId', 'userId')
+                        ->withTimestamps()
+                        ->withPivot(['isManager'])
+                        ->where('isManager', 1 );
     }
 }

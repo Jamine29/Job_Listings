@@ -16,23 +16,8 @@ class CreateCompanyUserTable extends Migration
         Schema::create('company_user', function (Blueprint $table) {
             $table->foreignId('userId')->constrained('users');
             $table->foreignId('companyId')->constrained('companies');
-            /*
-            $table->bigInteger('userId')->unsigned();
-            $table->bigInteger('companyId')->unsigned();
             $table->timestamps();
-
-            $table->foreign('userId')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
-
-            $table->foreign('companyId')
-                    ->references('id')
-                    ->on('companies')
-                    ->onDelete('cascade');
-
-            $table->primary(array('companyId', 'userId'));
-            */
+            $table->boolean('isManager')->default(false);
         });
     }
 

@@ -20,7 +20,15 @@ class CompanySeeder extends Seeder
 
         foreach(Company::all() as $company) {
             $users =  \App\Models\User::inRandomOrder()->take(rand(1,4))->pluck('id');
-            $company->users()->attach($users);
+
+            for($i = 0; $i < count($users); $i++) {
+                if($i === 0) {
+                    $company->users()->attach($users[$i], ['isManager' => 1]);
+                }
+                else {
+                    $company->users()->attach($users[$i], ['isManager' => rand(0,1)]);
+                }
+            }
         }
     }
 }
