@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\Interfaces\CompanyRepositoryInterface;
+
 
 class CompanyController extends Controller
 {
+    private $companyRepository;
+
+    public function __construct(CompanyRepositoryInterface $companyRepository)
+    {
+        $this->companyRepository = $companyRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $companies = $this->companyRepository->all();
+        return view('Companies.all', compact('companies'));
     }
 
     /**
@@ -23,7 +33,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('Companies.create');
     }
 
     /**
@@ -34,51 +44,77 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newCompany = $request->validate([
+            'companyName' => 'required|string|min:1|max:150',
+            'description' => 'required|string|min:1|max:250',
+            'address' => 'required|string|min:1|max:150',
+            'email' => 'required|email|unique:companies,email'
+        ]);
+
+        $isStored = $this->companyRepository->create($newCompany);
+
+        if($isStored === true) {
+            return redirect('/companies')->with('success', 'Company sucssesfully created');
+        }
+        else {
+            return back()->withErrors()->withInput();
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $companyId
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($companyId)
     {
-        //
+        $company = $this->companyRepository->show($companyId);
+        return view('Companies.show', compact('company'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $companyId
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($companyId)
     {
-        //
+        $company = $this->companyRepository->show($companyId);
+        return view('Companies.edit', compact('company'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $companyId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $companyId)
     {
-        //
+        $updated_company = $request->validate([
+            'companyName' => 'required|string|min:1|max:150',
+            'description' => 'required|string|min:1|max:250',
+            'address'=> 'required|string|min:1|max:150',
+            'email' => 'required|email|unique:companies,email,'.$companyId.',id'
+        ]);
+
+        $this->companyRepository->update($companyId, $updated_company);
+
+        return redirect('/companies')->with('success', 'Company successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $companyId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $companyId)
     {
-        //
+        $this->companyRepository->delete(companyId);
+        return redirect('/companies')->with('success', 'Company successfully deleted.');
     }
 }

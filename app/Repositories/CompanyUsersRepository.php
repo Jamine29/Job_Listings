@@ -1,36 +1,49 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Http\Controllers;
 
-use App\Models\CompanyUsers;
+use Illuminate\Http\Request;
 use App\Repositories\Interfaces\CompanyUsersRepositoryInterface;
 
-class CompanyUsersRepository implements CompanyUsersRepositoryInterface
+class CompanyUsersController extends Controller
 {
-    /**
-     * create a company
-     * @param arrray
-     * @return boolean
-     */
-    public function create(array $newCompanyUsers)
+    private $companyUsersRepository;
+
+    public function __construct(CompanyUsersRepositoryInterface $companyUsersRepository)
     {
-        try {
-            CompanyUsers::create($newCompanyUsers);
-            return true;
+        $this->companyUsersRepository = $companyUsersRepository;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        userId = auth()->user->id;
+
+        $isStored = $this->companyUserRepository->create($newCompanyUsers);;
+
+        if($isStored === true) {
+            return redirect('/companies')->with('success', 'CompanyUsers sucssesfully created');
         }
-        catch(\Illuminate\Database\QueryException $exception){
-            return false;
+        else {
+            return back()->withErrors()->withInput();
         }
     }
 
     /**
-     * delete a CompanyUser by user orand company id
-     * @param int
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
      */
-    public function delete($companyId, $userId)
+    public function destroy(int $companyId, int $userId)
     {
-        CompanyUsers::where('userId','=',$userId)
-                        ->where('companyId','=',$companyId)
-                        ->delete();
+        $this->companyUsersRepository->delete($companyId, $userId);
+        // reload page
+        return redirect('/companies')->with('success', 'CompanyUsers successfully deleted.');
     }
 }
