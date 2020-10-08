@@ -12,6 +12,7 @@ class CompanyController extends Controller
 
     public function __construct(CompanyRepositoryInterface $companyRepository)
     {
+        $this->authorizeResource(Company::class, 'company');
         $this->companyRepository = $companyRepository;
     }
 
@@ -23,7 +24,6 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = $this->companyRepository->all();
-        dd($companies);
         return view('Companies.all', compact('companies'));
     }
 
