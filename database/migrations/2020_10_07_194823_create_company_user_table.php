@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyUsersTable extends Migration
+class CreateCompanyUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCompanyUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('company_users', function (Blueprint $table) {
+        Schema::create('company_user', function (Blueprint $table) {
             $table->bigInteger('userId')->unsigned();
             $table->bigInteger('companyId')->unsigned();
             $table->timestamps();
@@ -42,7 +42,7 @@ class CreateCompanyUsersTable extends Migration
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('users');
         Schema::dropIfExists('companies');
-        Schema::dropIfExists('company_users');
+        Schema::dropIfExists('company_user');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

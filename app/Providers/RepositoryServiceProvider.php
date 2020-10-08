@@ -9,8 +9,8 @@ use App\Repositories\CompanyRepository;
 use App\Repositories\Interfaces\CompanyRepositoryInterface;
 use App\Repositories\JobRepository;
 use App\Repositories\Interfaces\JobRepositoryInterface;
-use App\Repositories\CompanyUsersRepository;
-use App\Repositories\Interfaces\CompanyUsersRepositoryInterface;
+use App\Repositories\CompanyUserRepository;
+use App\Repositories\Interfaces\CompanyUserRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -37,8 +37,8 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            CompanyUsersRepositoryInterface::class,
-            CompanyUsersRepository::class
+            CompanyUserRepositoryInterface::class,
+            CompanyUserRepository::class
         );
     }
 

@@ -29,7 +29,7 @@ class Job extends Model
     ];
 
     /**
-     * defines the relationship to company
+     * Defines the relationship to company.
      */
     public function company() 
     {

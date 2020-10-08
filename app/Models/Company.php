@@ -38,11 +38,21 @@ class Company extends Model
         'email_verified_at' => 'datetime',
     ];
 
+
     /**
-     * defines the relationship to company
+     * Defines the relationship to jobs.
      */
-    public function companies() 
+    public function jobs() 
     {
-        return $this->belongsToMany('App\Models\Company', 'company_users');
+        return $this->hasMany('App\Models\Job');
+    }
+
+
+    /**
+     * Defines the relationship to users.
+     */
+    public function users() 
+    {
+        return $this->belongsToMany('App\Models\User', 'company_user');
     }
 }

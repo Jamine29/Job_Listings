@@ -15,7 +15,7 @@ interface JobRepositoryInterface
      * returns a job by it's ID
      * @param int
      */
-    public function show($jobId);
+    public function show(int $jobId);
 
     /**
      * create a job

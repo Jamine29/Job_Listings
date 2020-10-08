@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface CompanyUsersRepositoryInterface
+interface CompanyUserRepositoryInterface
 {
     /**
      * create a CompanyUser

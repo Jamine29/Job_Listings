@@ -42,10 +42,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * defines the relationship to company
+     * Defines the relationship to company.
      */
     public function companies() 
     {
-        return $this->belongsToMany('App\Models\Company', 'company_users');
+        return $this->belongsToMany('App\Models\Company', 'company_user');
     }
 }

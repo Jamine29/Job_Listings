@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\CompanyUsersRepositoryInterface;
+use App\Repositories\Interfaces\CompanyUserRepositoryInterface;
 
-class CompanyUsersController extends Controller
+class CompanyUserController extends Controller
 {
-    private $companyUsersRepository;
+    private $companyUserRepository;
 
-    public function __construct(CompanyUsersRepositoryInterface $companyUsersRepository)
+    public function __construct(CompanyUserRepositoryInterface $companyUserRepository)
     {
-        $this->companyUsersRepository = $companyUsersRepository;
+        $this->companyUserRepository = $companyUserRepository;
     }
 
     /**
@@ -42,7 +42,7 @@ class CompanyUsersController extends Controller
      */
     public function destroy(int $companyId, int $userId)
     {
-        $this->companyUsersRepository->delete($companyId, $userId);
+        $this->companyUserRepository->delete($companyId, $userId);
         // reload page
         return redirect('/companies')->with('success', 'CompanyUsers successfully deleted.');
     }

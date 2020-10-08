@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Company;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CompanyPolicy
+class JobPolicy
 {
     use HandlesAuthorization;
 
@@ -25,13 +24,13 @@ class CompanyPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Job  $job
      * @return mixed
      */
-    public function view(User $user, Company $company)
+    public function view(User $user, Job $job)
     {
         foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $company->id) {
+            if($companyUser->id === $job->companyId) {
                 return true;
             }
         }
@@ -53,10 +52,10 @@ class CompanyPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Job  $job
      * @return mixed
      */
-    public function update(User $user, Company $company)
+    public function update(User $user, Job $job)
     {
         return true;
     }
@@ -65,13 +64,13 @@ class CompanyPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Job  $job
      * @return mixed
      */
-    public function delete(User $user, Company $company)
+    public function delete(User $user, Job $job)
     {
         foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $company->id){
+            if($companyUser->id === $job->id){
                 return true;
             }
         }

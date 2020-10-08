@@ -12,6 +12,7 @@ class JobController extends Controller
 
     public function __construct(JobRepositoryInterface $jobRepository)
     {
+        $this->authorizeResource(Job::class, 'job');
         $this->jobRepository = $jobRepository;
     }
     /**
