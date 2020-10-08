@@ -21,9 +21,9 @@ class JobRepository implements JobRepositoryInterface
      * returns a job by it's ID
      * @param int
      */
-    public function show(int $jobId)
+    public function show(Job $job)
     {
-        return Job::findOrFail($jobId);
+        //return Job::findOrFail($jobId);
     }
 
     /**
@@ -44,20 +44,20 @@ class JobRepository implements JobRepositoryInterface
 
     /**
      * update a job by it's ID
-     * @param int
+     * @param  Job  $job
      * @param array
      */
-    public function update(int $jobId, array $updatedJob)
+    public function update(Job $job, array $updatedJob)
     {
-        Job::findOrFail($jobId)->update($updatedJob);
+        $job->update($updatedJob);
     }
 
     /**
      * delete a job by it's ID
-     * @param int
+     * @param Job $job
      */
-    public function delete($jobId)
+    public function delete(Job $job)
     {
-        Job::findOrFail($jobId)->delete();
+        $job->delete();
     }
 }

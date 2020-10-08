@@ -15,7 +15,7 @@ class Company extends Model
      * @var array
      */
     protected $fillable = [
-        'companyName',
+        'name',
         'description',
         'address',
         'email'
@@ -60,7 +60,7 @@ class Company extends Model
     }
 
     /**
-     * Defines the relationship to users.
+     * Get all Managers of the Company.
      */
     public function managers() 
     {

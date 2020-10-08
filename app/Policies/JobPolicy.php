@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Job;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class JobPolicy
@@ -10,7 +11,7 @@ class JobPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
      * @return mixed
@@ -21,20 +22,16 @@ class JobPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\Job $job
      * @return mixed
      */
-    public function view(User $user, Job $job)
+    
+    public function view(User $user, Job $job) 
     {
-        foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $job->companyId) {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 
     /**
@@ -45,7 +42,9 @@ class JobPolicy
      */
     public function create(User $user)
     {
-        return auth()->check();
+        dd('in create');
+        //return auth()->check();
+        return true;
     }
 
     /**
@@ -57,7 +56,19 @@ class JobPolicy
      */
     public function update(User $user, Job $job)
     {
-        return true;
+        //dd('in update');
+        foreach($user->companies()->get() as $companyUser) {
+            if($companyUser->id === $job->id) {
+                $managerArray = $companyUser->managers()->get();
+                foreach($managerArray as $manager) {
+                    if($user->id === $manager->id) {
+                        //dd($manager);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -69,9 +80,16 @@ class JobPolicy
      */
     public function delete(User $user, Job $job)
     {
+        //dd('in delete');
         foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $job->id){
-                return true;
+            if($companyUser->id === $job->id) {
+                $managerArray = $companyUser->managers()->get();
+                foreach($managerArray as $manager) {
+                    if($user->id === $manager->id) {
+                        //dd($manager);
+                        return true;
+                    }
+                }
             }
         }
         return false;

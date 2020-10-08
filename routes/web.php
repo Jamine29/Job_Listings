@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +14,16 @@ use App\Http\Controllers\JobController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::redirect('/', '/jobs');
+
+// jobs
+Route::get('/jobs/{job}', [App\Http\Controllers\JobController::class, 'show'])->name('jobs.show');
+Route::get('/jobs', [App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/{job}/edit', [App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
 
 Route::resource('/companies', CompanyController::class)->names([
-    'store' => 'jobs.store'
+    'store' => 'companies.store'
 ]);
 
-Route::resource('/jobs', JobController::class)->names([
-    'store' => 'jobs.store'
-]);

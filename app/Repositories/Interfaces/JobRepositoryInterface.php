@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Interfaces;
 
+use App\Models\Job;
+
 interface JobRepositoryInterface
 {
     /**
@@ -13,9 +15,9 @@ interface JobRepositoryInterface
 
     /**
      * returns a job by it's ID
-     * @param int
+     * @param integer $jobId
      */
-    public function show(int $jobId);
+    public function show(Job $job);
 
     /**
      * create a job
@@ -25,14 +27,15 @@ interface JobRepositoryInterface
 
     /**
      * update a job by it's ID
-     * @param int
+     * @param  Job  $job
      * @param array
      */
-    public function update(int $jobId, array $updatedJob);
+    public function update(Job $job, array $updatedJob);
 
     /**
-     * delete a job by it's ID
-     * @param int
+     * Delete a job.
+     * 
+     * @param  Job  $job 
      */
-    public function delete(int $jobId);
+    public function delete(Job $job);
 }

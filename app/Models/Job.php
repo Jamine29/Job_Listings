@@ -33,6 +33,6 @@ class Job extends Model
      */
     public function company() 
     {
-        return $this->belogsTo('App\Models\Company');
+        return $this->belongsTo('App\Models\Company', 'companyId');
     }
 }

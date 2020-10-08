@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\JobRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
+
+//$this->authorize('view',auth()->user());
 
 class JobController extends Controller
 {
@@ -15,6 +18,7 @@ class JobController extends Controller
         $this->authorizeResource(Job::class, 'job');
         $this->jobRepository = $jobRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -65,13 +69,13 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Job  $job
+     * @param  Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Job $job)
     {
-        $job = $this->jobRepository->show($id);
-        return view('Jobs.show', compact('job'));
+        $company=$job->company()->get()[0];
+        return view('Jobs.show', compact(['job','company']));
     }
 
     /**
@@ -80,8 +84,9 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Job $job)
     {
+        dd('in edit');
         $job = $this->jobRepository->show($id);
         return view('Jobs.edit', compact('job'));
     }
@@ -93,7 +98,7 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Job $job)
     {
         $updatedJob = $request->validate([
             'title' => 'required|string|min:2|max:150',
@@ -101,7 +106,7 @@ class JobController extends Controller
             'companyId' => 'required|integer'
         ]);
 
-        $this->jobRepository->update($id, $updatedJob);
+        $this->jobRepository->update($job, $updatedJob);
         
         return redirect('/jobs')->with('success', 'Job successfully updated.');
     }
@@ -112,9 +117,9 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Job $job)
     {
-        $this->jobRepository->delete($id);
+        $this->jobRepository->delete($job);
         return redirect('/jobs');
     }
 }
