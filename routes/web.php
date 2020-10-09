@@ -18,7 +18,7 @@ Auth::routes();
 
 Route::redirect('/', '/jobs');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/jobs', App\Http\Controllers\JobController::class);
 

@@ -3,15 +3,6 @@
 @section('content')
         <div style="margin:0% 10% 4% 10%;">
             <h1 style="margin-bottom:2%;">Create a new Job<h1>
-            @if($errors->any())
-                <div>
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <form method="POST" action="{{ route('jobs.store') }}">
                 @csrf
                   <div class="form-group">

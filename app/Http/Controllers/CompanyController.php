@@ -47,15 +47,16 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $newCompany = $request->validate([
-            'companyName' => 'required|string|min:1|max:150',
+            'name' => 'required|string|min:1|max:150',
             'description' => 'required|string|min:1|max:250',
             'address' => 'required|string|min:1|max:150',
             'email' => 'required|email|unique:companies,email'
         ]);
 
-        $isStored = $this->companyRepository->create($newCompany);
+        $createdCompany = $this->companyRepository->create($newCompany)->id;
+        auth()->user()->companies()->attach($createdCompany, ['isManager' => 1]);
 
-        if($isStored === true) {
+        if($createdCompany !== null) {
             return redirect('/companies')->with('success', 'Company sucssesfully created');
         }
         else {

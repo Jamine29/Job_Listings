@@ -21,14 +21,14 @@ interface CompanyRepositoryInterface
     public function show(Company $company);
 
     /**
-     * create a company
+     * Create a company.
      * 
      * @param  array  $newCompany
      */
     public function create(array $newCompany);
 
     /**
-     * Update a Company
+     * Update a Company.
      * 
      * @param Company $company
      * @param array $updatedCompany
@@ -37,6 +37,7 @@ interface CompanyRepositoryInterface
 
     /**
      * Delete a company.
+     * 
      * @param Company $company
      */
     public function delete(Company $company);

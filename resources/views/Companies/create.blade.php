@@ -3,8 +3,8 @@
 @section('content')
     <div>
         <div style="margin:0% 10% 4% 10%;">
-            <h1 style="margin-bottom:2%;">Edit<h1>
-            <form method="POST" action="{{ route('companies.create') }}">
+            <h1 style="margin-bottom:2%;">Create a new Company<h1>
+            <form method="POST" action="{{ route('companies.store') }}">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name</label>

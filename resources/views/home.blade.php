@@ -1,24 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <a class="btn btn-primary" href="{{ route('jobs.create')}}">Add Job</a>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
+    <div class="container" style="margin:0% 10% 4% 10%;">
+        <a class="btn btn-primary" href="{{ route('jobs.create')}}">Add new Job</a>
+        <a class="btn btn-primary" href="{{ route('companies.create')}}">Add new Company</a>
+        <h1 style="margin:2% 0;">Your Companies</h1>
+        @foreach (auth()->user()->companies()->get() as $company)
+            <div class="card" style="margin-bottom:4%;">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    <a href="{{ route('companies.show', $company)}}">
+                        <h5 class="card-title">{{ $company->name }}</h5>
+                    </a>
+                    <p>{{ $company->description }}</p>
+                    <a class="btn btn-primary" href="{{ route('companies.show', $company->id )}}">Show Company</a>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
-</div>
+    </div>
 @endsection

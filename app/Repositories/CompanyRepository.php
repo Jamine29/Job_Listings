@@ -31,16 +31,15 @@ class CompanyRepository implements CompanyRepositoryInterface
      * Create a company
      * 
      * @param  array  Company $newCompany
-     * @return  boolean
+     * @return  mixed
      */
     public function create(array $newCompany)
     {
         try {
-            Company::create($newCompany);
-            return true;
+            return Company::create($newCompany);
         }
         catch(\Illuminate\Database\QueryException $exception) {
-            return false;
+            return null;
         }
     }
 
