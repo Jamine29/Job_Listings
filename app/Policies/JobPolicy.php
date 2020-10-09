@@ -42,9 +42,7 @@ class JobPolicy
      */
     public function create(User $user)
     {
-        dd('in create');
-        //return auth()->check();
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -56,19 +54,7 @@ class JobPolicy
      */
     public function update(User $user, Job $job)
     {
-        //dd('in update');
-        foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $job->id) {
-                $managerArray = $companyUser->managers()->get();
-                foreach($managerArray as $manager) {
-                    if($user->id === $manager->id) {
-                        //dd($manager);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        return $this->isManager($user, $job);
     }
 
     /**
@@ -80,13 +66,22 @@ class JobPolicy
      */
     public function delete(User $user, Job $job)
     {
-        //dd('in delete');
+        return $this->isManager($user, $job);
+    }
+
+    /**
+     * Determine whether the user is a manager of the company.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Job  $job
+     * @return mixed
+     */
+    public function isManager(User $user, Job $job) {
         foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $job->id) {
+            if($companyUser->id === $job->companyId) {
                 $managerArray = $companyUser->managers()->get();
                 foreach($managerArray as $manager) {
                     if($user->id === $manager->id) {
-                        //dd($manager);
                         return true;
                     }
                 }

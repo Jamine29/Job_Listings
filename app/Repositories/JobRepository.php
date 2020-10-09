@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\JobRepositoryInterface;
 class JobRepository implements JobRepositoryInterface
 {
     /**
-     * returns all jobs
+     * Returns all jobs.
      * 
      * @return mixed
      */
@@ -18,18 +18,20 @@ class JobRepository implements JobRepositoryInterface
     }
 
     /**
-     * returns a job by it's ID
-     * @param int
+     * Returns a job.
+     * 
+     * @param  Job  $job
      */
     public function show(Job $job)
     {
-        //return Job::findOrFail($jobId);
+        return;
     }
 
     /**
-     * create a job
-     * @param array
-     * @return boolean
+     * Create a job.
+     * 
+     * @param  array  $newJob
+     * @return  boolean
      */
     public function create(array $newJob)
     {
@@ -44,8 +46,9 @@ class JobRepository implements JobRepositoryInterface
 
     /**
      * Update a job.
+     * 
      * @param  Job  $job
-     * @param array
+     * @param  array  $updatedJob
      */
     public function update(Job $job, array $updatedJob)
     {
@@ -54,7 +57,8 @@ class JobRepository implements JobRepositoryInterface
 
     /**
      * Delete a job.
-     * @param Job $job
+     * 
+     * @param  Job  $job
      */
     public function delete(Job $job)
     {

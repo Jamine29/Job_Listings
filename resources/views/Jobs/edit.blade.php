@@ -2,7 +2,7 @@
 
 @section('content')
         <div style="margin:0% 10% 4% 10%;">
-            <h1>Edit<h1>
+            <h1 style="margin-bottom:2%;">Edit<h1>
             <form method="POST" action="{{ route('jobs.update', $job) }}">
                 @csrf
                 @method('PATCH')

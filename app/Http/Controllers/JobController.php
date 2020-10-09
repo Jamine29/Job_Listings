@@ -48,8 +48,6 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        // id oben übergeben
-
         $newJob = $request->validate([
             'title' => 'required|string|min:2|max:150',
             'description' => 'required|string|min:2|max:250',
@@ -105,7 +103,6 @@ class JobController extends Controller
         ]);
 
         $this->jobRepository->update($job, $updatedJob);
-
         return redirect('/jobs/'.$job->id)->with('success', 'Job successfully updated.');
     }
 
@@ -118,7 +115,6 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $this->jobRepository->delete($job);
-        
-        return redirect('/jobs');
+        return redirect('/jobs')->with('success', 'Job successfully deleted.');
     }
 }
