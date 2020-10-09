@@ -7,7 +7,7 @@
                 <a class="btn btn-primary" href="{{ route('jobs.edit', $job)}}">Edit</a>
             @endcan
             @can('delete', $job)
-                <form style="display: inline-block;margin-left:2%;" action="{{ route('jobs.edit', $job) }}" method="post">
+                <form style="display: inline-block;margin-left:2%;" action="{{ route('jobs.destroy', $job) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" type=submit>DELETE</button>
