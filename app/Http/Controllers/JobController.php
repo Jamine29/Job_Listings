@@ -86,8 +86,6 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        dd('in edit');
-        $job = $this->jobRepository->show($id);
         return view('Jobs.edit', compact('job'));
     }
 

@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <h1>Erstelle Job<h1>
-        <div>
-            @if($errors->any())
-                <div>
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form method="POST" action="{{ route('jobs.update', $job->id) }}">
+@extends('layouts.app')
+
+@section('content')
+        <div style="margin:0% 10% 4% 10%;">
+            <h1>Edit<h1>
+            <form method="POST" action="{{ route('jobs.update', $job) }}">
                 @csrf
                 @method('PATCH')
-                <div class={{$errors->has('title')}}>
-                    <label for="title">Job Title:</lable>
-                    <input type="text" name="title" value="{{old('title', $job->title)}}" /> 
+                <div class="form-group">
+                    <input type="hidden" id="companyId" name="companyId" value="{{old('companyId', $job->companyId)}}" /> 
                 </div>
-                <div>
-                    <label for="description">Description:</label>
-                    <input type="text" name="description" value="{{old('description', $job->description)}}" />
+
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <textarea rows="2" maxlength="150" class="form-control @error('title') is-invalid @enderror" name="title" autofocus>{{old('title', $job->title)}}</textarea>
+                    @error('title')
+                        <span class="invalid-feedback" role="alert">
+                            <p>{{ $message }}</p>
+                        </span>
+                    @enderror
                 </div>
-                <div>
-                    <label for="dauer">Dauer:</label>
-                    <input type="text" name="dauer" value="{{old('dauer', $job->dauer)}}" />
+
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea rows="6" maxlength="250" class="form-control @error('description') is-invalid @enderror" name="description">{{old('description', $job->description)}}</textarea>
+                    @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <p>{{ $message }}</p>
+                        </span>
+                    @enderror
                 </div>
-                <div>
-                    <label for="company_id">Company Id:</label>
-                    <input type="text" name="company_id" value="{{old('company_id', $job->company_id)}}" />
-                </div>
-                <button type="submit">Create</button>
+
+                <button class="btn btn-primary" type="submit">Update</button>
             </form>
         </div>
-    </body>
-</html>
+@endsection

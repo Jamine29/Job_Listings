@@ -3,16 +3,16 @@
 @section('content')
     <div style="margin:0% 10% 4% 10%;">
         <div>
-                @can('update', $job)
-                        <a class="btn btn-primary" href="{{ route('jobs.edit', $job)}}">Edit</a>
-                @endcan
-                @can('delete', $job)
-                    <form style="display: inline-block;" action="{{ route('jobs.edit', $job) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type=submit>DELETE</button>
-                    </form>
-                @endcan
+            @can('update', $job)
+                <a class="btn btn-primary" href="{{ route('jobs.edit', $job)}}">Edit</a>
+            @endcan
+            @can('delete', $job)
+                <form style="display: inline-block;margin-left:2%;" action="{{ route('jobs.edit', $job) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type=submit>DELETE</button>
+                </form>
+            @endcan
         </div>
         <h1 style="margin:2% 0% 2% 0%;">{{ $job->title }}</h1>
         <div class="card">

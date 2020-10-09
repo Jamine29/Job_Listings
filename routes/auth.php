@@ -11,9 +11,7 @@
 |
 */
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // jobs
 //Route::delete('/jobs/{jobId}/', [JobController::class, 'destroy'])->name('jobs.destroy');

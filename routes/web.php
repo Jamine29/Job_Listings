@@ -19,11 +19,16 @@ Auth::routes();
 Route::redirect('/', '/jobs');
 
 // jobs
+/*
 Route::get('/jobs/{job}', [App\Http\Controllers\JobController::class, 'show'])->name('jobs.show');
 Route::get('/jobs', [App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');
 Route::get('/jobs/{job}/edit', [App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
+Route::get('/jobs/{job}/edit', [App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
+*/
 
-Route::resource('/companies', CompanyController::class)->names([
-    'store' => 'companies.store'
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('/jobs', App\Http\Controllers\JobController::class)->names([
+    //'show' => 'jobs.show'
 ]);
 
