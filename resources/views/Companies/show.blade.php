@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div style="margin:0% 10% 2% 10%;">
+    <div style="margin:0% 10% 4% 10%;">
         <div>
             @can('update', $company)
                 <a class="btn btn-primary" href="{{ route('companies.edit', $company)}}">Edit</a>

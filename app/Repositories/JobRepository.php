@@ -36,11 +36,10 @@ class JobRepository implements JobRepositoryInterface
     public function create(array $newJob)
     {
         try {
-            Job::create($newJob);
-            return true;
+            return Job::create($newJob);
         }
         catch(\Illuminate\Database\QueryException $exception) {
-            return false;
+            return null;
         }
     }
 

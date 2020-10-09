@@ -54,10 +54,10 @@ class JobController extends Controller
             'companyId' => 'required|integer' 
         ]);
         
-        $isStored = $this->jobRepository->create($newJob);
+        $createdJobId = $this->jobRepository->create($newJob)->id;;
 
-        if($isStored === true) {
-            return redirect('/jobs')->with('success', 'Job sucssesfully created');
+        if($createdJobId !== null) {
+            return redirect('/jobs/'.$createdJobId)->with('success', 'Job sucssesfully created');
         }
         else {
             return back()->withErrors()->withInput();
@@ -115,6 +115,6 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $this->jobRepository->delete($job);
-        return redirect('/jobs')->with('success', 'Job successfully deleted.');
+        return redirect('/home')->with('success', 'Job successfully deleted.');
     }
 }

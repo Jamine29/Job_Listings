@@ -16,17 +16,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $users = $this->userRepository->all();
-        return view('Users.all', compact('users'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -45,9 +34,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $newUser = $request->validate([
-            'userName' => 'required|string|min:2|max:20|unique:users,userName',
+            'name' => 'required|string|min:2|max:20|unique:users,name',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:5|max:15'
+            'password' => 'required|string|min:8|max:15'
         ]);
 
         $isStored = $this->userRepository->create($newUser);
@@ -95,9 +84,9 @@ class UserController extends Controller
     {
         // hide passwort
         $updatedUser = $request->validate([
-            'userName' => 'required|string|min:2|max:20|unique:users,userName,'.auth()->user->userName.',userName',
+            'name' => 'required|string|min:2|max:20|unique:users,name,'.auth()->user->name.',name',
             'email' => 'required|email|unique:users,email,' .auth()->user->email.',id',
-            'password' => 'required|string|min:5|max:15'
+            'password' => 'required|string|min:8|max:15'
         ]);
 
         $this->userRepository->update($userId, $updatedUser);

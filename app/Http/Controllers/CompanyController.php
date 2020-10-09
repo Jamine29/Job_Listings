@@ -53,11 +53,11 @@ class CompanyController extends Controller
             'email' => 'required|email|unique:companies,email'
         ]);
 
-        $createdCompany = $this->companyRepository->create($newCompany)->id;
-        auth()->user()->companies()->attach($createdCompany, ['isManager' => 1]);
+        $createdCompanyId = $this->companyRepository->create($newCompany)->id;
+        auth()->user()->companies()->attach($createdCompanyId, ['isManager' => 1]);
 
-        if($createdCompany !== null) {
-            return redirect('/companies')->with('success', 'Company sucssesfully created');
+        if($createdCompanyId !== null) {
+            return redirect('/companies/'.$createdCompanyId)->with('success', 'Company sucssesfully created');
         }
         else {
             return back()->withErrors()->withInput();
@@ -117,6 +117,6 @@ class CompanyController extends Controller
     {
         $company->users()->detach();
         $this->companyRepository->delete($company);
-        return redirect('/companies')->with('success', 'Company successfully deleted.');
+        return redirect('/home')->with('success', 'Company successfully deleted.');
     }
 }

@@ -54,7 +54,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="btn btn-light" style="margin-right:20px;" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="btn btn-outline-primary" style="margin-right:20px;" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -64,14 +64,18 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->username }}
+                                    {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('home') }}">
-                                       Account
+                                       My Account
                                     </a>
-                                                                   
+
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                       Your Companies
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
