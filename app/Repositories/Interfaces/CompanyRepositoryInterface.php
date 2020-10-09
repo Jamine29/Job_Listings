@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Interfaces;
 
+use App\Models\Company;
+
 interface CompanyRepositoryInterface
 {
     /**
@@ -25,10 +27,10 @@ interface CompanyRepositoryInterface
 
     /**
      * update a company by it's ID
-     * @param int
-     * @param array
+     * @param Company $company
+     * @param array $updatedCompany
      */
-    public function update(int $userId, array $updatedCompany);
+    public function update(Company $company, array $updatedCompany);
 
     /**
      * delete a company by it's ID

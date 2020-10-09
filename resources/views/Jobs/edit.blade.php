@@ -12,7 +12,7 @@
 
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <textarea rows="2" maxlength="150" class="form-control @error('title') is-invalid @enderror" name="title" autofocus>{{old('title', $job->title)}}</textarea>
+                    <input class="form-control @error('title') is-invalid @enderror" type="text" id="title" name="title" value="{{old('title', $job->title)}}" maxlength="150" autofocus/>
                     @error('title')
                         <span class="invalid-feedback" role="alert">
                             <p>{{ $message }}</p>

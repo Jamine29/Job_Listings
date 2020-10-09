@@ -25,10 +25,13 @@
         <div class="card" style="margin:0% 10% 0% 10%;">
             <div class="card-header">Company</div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ $company->name }}</h5>
+                    <a href="{{ route('companies.show', $company)}}">
+                        <h5 class="card-title">{{ $company->name }}</h5>
+                    </a>
                     <p>{{ $company->description }}</p>
                     <p>{{ $company->address }}</p>
                     <p>{{ $company->email }}</p>
+                    <a class="btn btn-primary" href="{{ route('companies.show', $company->id )}}">Show Company</a>
                 </div>
             </div>
         </div>

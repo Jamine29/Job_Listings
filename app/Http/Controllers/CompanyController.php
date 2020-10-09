@@ -77,12 +77,11 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $companyId
+     * @param  Company $company
      * @return \Illuminate\Http\Response
      */
-    public function edit($companyId)
+    public function edit(Company $company)
     {
-        $company = $this->companyRepository->show($companyId);
         return view('Companies.edit', compact('company'));
     }
 
@@ -90,21 +89,21 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $companyId
+     * @param  Company $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $companyId)
+    public function update(Request $request, Company $company)
     {
-        $updated_company = $request->validate([
-            'companyName' => 'required|string|min:1|max:150',
+        $updatedCompany = $request->validate([
+            'name' => 'required|string|min:1|max:150',
             'description' => 'required|string|min:1|max:250',
             'address'=> 'required|string|min:1|max:150',
-            'email' => 'required|email|unique:companies,email,'.$companyId.',id'
+            'email' => 'required|email|unique:companies,email,'.$company->email.',email'
         ]);
 
-        $this->companyRepository->update($companyId, $updated_company);
+        $this->companyRepository->update($company, $updatedCompany);
 
-        return redirect('/companies')->with('success', 'Company successfully updated.');
+        return redirect('/companies/'.$company->id)->with('success', 'Company successfully updated.');
     }
 
     /**

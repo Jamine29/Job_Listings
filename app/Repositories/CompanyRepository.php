@@ -44,12 +44,12 @@ class CompanyRepository implements CompanyRepositoryInterface
 
     /**
      * update a company by it's ID
-     * @param int
-     * @param array
+     * @param Company $company
+     * @param array $updatedCompany
      */
-    public function update(int $companyId, array $updatedCompany)
+    public function update(Company $company, array $updatedCompany)
     {
-        Company::findOrFail($companyId)->update($updatedCompany);
+        $company->update($updatedCompany);
     }
 
     /**
