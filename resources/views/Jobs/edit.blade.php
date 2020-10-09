@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea rows="6" maxlength="250" class="form-control @error('description') is-invalid @enderror" name="description">{{old('description', $job->description)}}</textarea>
+                    <textarea rows="2" maxlength="250" class="form-control @error('description') is-invalid @enderror" name="description">{{old('description', $job->description)}}</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">
                             <p>{{ $message }}</p>

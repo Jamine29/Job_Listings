@@ -105,8 +105,8 @@ class JobController extends Controller
         ]);
 
         $this->jobRepository->update($job, $updatedJob);
-        
-        return redirect('/jobs')->with('success', 'Job successfully updated.');
+
+        return redirect('/jobs/'.$job->id)->with('success', 'Job successfully updated.');
     }
 
     /**
@@ -118,6 +118,7 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $this->jobRepository->delete($job);
+        
         return redirect('/jobs');
     }
 }

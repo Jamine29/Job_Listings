@@ -43,7 +43,7 @@ class JobRepository implements JobRepositoryInterface
     }
 
     /**
-     * update a job by it's ID
+     * Update a job.
      * @param  Job  $job
      * @param array
      */
@@ -53,7 +53,7 @@ class JobRepository implements JobRepositoryInterface
     }
 
     /**
-     * delete a job by it's ID
+     * Delete a job.
      * @param Job $job
      */
     public function delete(Job $job)
