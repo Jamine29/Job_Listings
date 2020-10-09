@@ -7,28 +7,31 @@ use App\Models\Job;
 interface JobRepositoryInterface
 {
     /**
-     * returns all jobs
+     * Returns all jobs.
      * 
      * @return mixed
      */
     public function all();
 
     /**
-     * returns a job by it's ID
-     * @param integer $jobId
+     * Returns a job.
+     * 
+     * @param  Job  $job
      */
     public function show(Job $job);
 
     /**
-     * create a job
-     * @param array
+     * Create a job.
+     * 
+     * @param  array  $newJob
      */
     public function create(array $newJob);
 
     /**
-     * update a job by it's ID
+     * Update a job.
+     * 
      * @param  Job  $job
-     * @param array
+     * @param  array  $updatedJob
      */
     public function update(Job $job, array $updatedJob);
 

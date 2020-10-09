@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\CompanyRepositoryInterface;
 class CompanyRepository implements CompanyRepositoryInterface
 {
     /**
-     * returns all companies
+     * Returns all companies.
      *
      * @return mixed
      */
@@ -18,18 +18,20 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
 
     /**
-     * returns a company by it's ID
-     * @param int
+     * Returns a company.
+     * 
+     * @param  Company  $company
      */
-    public function show(int $companyId)
+    public function show(Company $company)
     {
-        return Company::findOrFail($companyId);
+        return $company;
     }
 
     /**
-     * create a company
-     * @param array
-     * @return boolean
+     * Create a company
+     * 
+     * @param  array  Company $newCompany
+     * @return  boolean
      */
     public function create(array $newCompany)
     {
@@ -43,9 +45,10 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
 
     /**
-     * update a company by it's ID
-     * @param Company $company
-     * @param array $updatedCompany
+     * Update a company.
+     * 
+     * @param  Company  $company
+     * @param  array  $updatedCompany
      */
     public function update(Company $company, array $updatedCompany)
     {
@@ -53,11 +56,12 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
 
     /**
-    * delete a company by it's ID
-    * @param int
+    * Delete a company.
+    *
+    * @param Compaany $company
     */
-    public function delete(int $companyId)
+    public function delete(Company $company)
     {
-        Company::findOrFail($companyId)->delete();
+        $company->delete();
     }
 }

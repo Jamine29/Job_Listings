@@ -7,34 +7,37 @@ use App\Models\Company;
 interface CompanyRepositoryInterface
 {
     /**
-     * returns all companies
+     * Returns all companies.
      * 
      * @return mixed
      */
     public function all();
 
     /**
-     * returns a company by it's ID
-     * @param int
+     * Returns a company.
+     * 
+     * @param  Company $company
      */
-    public function show(int $userId);
+    public function show(Company $company);
 
     /**
      * create a company
-     * @param array
+     * 
+     * @param  array  $newCompany
      */
     public function create(array $newCompany);
 
     /**
-     * update a company by it's ID
+     * Update a Company
+     * 
      * @param Company $company
      * @param array $updatedCompany
      */
     public function update(Company $company, array $updatedCompany);
 
     /**
-     * delete a company by it's ID
-     * @param int
+     * Delete a company.
+     * @param Company $company
      */
-    public function delete(int $userId);
+    public function delete(Company $company);
 }

@@ -42,7 +42,7 @@ class CompanyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return  \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -77,7 +77,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Company $company
+     * @param  Company  $company
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
@@ -89,7 +89,7 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Company $company
+     * @param  Company  $company
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Company $company)
@@ -109,12 +109,13 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $companyId
+     * @param  Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $companyId)
+    public function destroy(Company $company)
     {
-        $this->companyRepository->delete(companyId);
+        $company->users()->detach();
+        $this->companyRepository->delete($company);
         return redirect('/companies')->with('success', 'Company successfully deleted.');
     }
 }

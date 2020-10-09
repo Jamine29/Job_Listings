@@ -24,7 +24,7 @@ class JobRepository implements JobRepositoryInterface
      */
     public function show(Job $job)
     {
-        return;
+        return $job;
     }
 
     /**
