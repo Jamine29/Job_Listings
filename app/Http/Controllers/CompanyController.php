@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\CompanyRepositoryInterface;
+use App\Models\Company;
 
 
 class CompanyController extends Controller
@@ -65,12 +66,11 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $companyId
+     * @param  Company  $companyId
      * @return \Illuminate\Http\Response
      */
-    public function show($companyId)
+    public function show(Company $company)
     {
-        $company = $this->companyRepository->show($companyId);
         return view('Companies.show', compact('company'));
     }
 

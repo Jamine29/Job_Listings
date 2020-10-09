@@ -28,14 +28,9 @@ class CompanyPolicy
      * @param  \App\Models\Company  $company
      * @return mixed
      */
-    public function view(User $user, Company $company)
+    public function view(User $user=null, Company $company)
     {
-        foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $company->id) {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 
     /**
@@ -52,29 +47,42 @@ class CompanyPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  User  $user
+     * @param  Company  $company
      * @return mixed
      */
     public function update(User $user, Company $company)
     {
-        return true;
+        return $this->isManager($user, $company);
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  User  $user
+     * @param  Company  $company
      * @return mixed
      */
     public function delete(User $user, Company $company)
     {
-        foreach($user->companies()->get() as $companyUser) {
-            if($companyUser->id === $company->id){
+        return $this->isManager($user, $company);
+    }
+
+     /**
+     * Determine whether the user is a manager of the company.
+     *
+     * @param  User  $user
+     * @param  Company  $company
+     * @return mixed
+     */
+    public function isManager(User $user, Company $company) 
+    {
+        foreach($company->managers()->get() as $manager) {
+            if($user->id === $manager->id) {
                 return true;
             }
         }
+
         return false;
     }
 }

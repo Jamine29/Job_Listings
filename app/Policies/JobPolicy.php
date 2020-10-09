@@ -76,7 +76,8 @@ class JobPolicy
      * @param  \App\Models\Job  $job
      * @return mixed
      */
-    public function isManager(User $user, Job $job) {
+    public function isManager(User $user, Job $job)
+    {
         foreach($user->companies()->get() as $companyUser) {
             if($companyUser->id === $job->companyId) {
                 $managerArray = $companyUser->managers()->get();
