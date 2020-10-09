@@ -1,42 +1,53 @@
-@extends('./layouts.app')
-
+@extends('layouts.app')
 
 @section('content')
-        <h1>Erstelle Company<h1>
-        <div>
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form method="POST" action="{{ route('companies.store') }}">
+    <div>
+        <div style="margin:0% 10% 4% 10%;">
+            <h1 style="margin-bottom:2%;">Edit<h1>
+            <form method="POST" action="{{ route('companies.create') }}">
                 @csrf
-                <div class={{$errors->has('company_name')}}>
-                    <label for="company_name">Company Name:</lable>
-                    <input type="text" name="company_name" value="{{old('company_name')}}" /> 
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name" value="{{old('name', '')}}" maxlength="150" autofocus/>
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <p>{{ $message }}</p>
+                        </span>
+                    @enderror                    
                 </div>
-                @if ($errors->has('last_name'))
-                    <span>
-                        hier
-                    <span>
-                @endif
-                <div>
-                    <label for="number_of_employees">Number of Employees:</label>
-                    <input type="text" name="number_of_employees" />
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea rows="2" maxlength="250" class="form-control @error('description') is-invalid @enderror" name="description">{{old('description', '')}}</textarea>
+                    @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <p>{{ $message }}</p>
+                        </span>
+                    @enderror
                 </div>
-                <div>
-                    <label for="email">E-Mail:</label>
-                    <input type="text" name="email" />
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input class="form-control @error('address') is-invalid @enderror" type="text" id="address" name="address" value="{{old('address', '')}}" maxlength="150" />
+                    @error('address')
+                        <span class="invalid-feedback" role="alert">
+                            <p>{{ $message }}</p>
+                        </span>
+                    @enderror
                 </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type=input name="password" />
+
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input class="form-control @error('email') is-invalid @enderror" type="text" id="email" name="email" value="{{old('email', '')}}" />
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                                <p>{{ $message }}</p>
+                        </span>
+                    @enderror
                 </div>
-                <button type="submit">Sign Up</button>
+
+                <button class="btn btn-primary" type="submit">Create</button>
             </form>
         </div>
+    </div>
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div style="margin:0% 10% 4% 10%;">
-            <h1 style="margin-bottom:2%;">Edit<h1>
+            <h1 style="margin-bottom:2%;">Edit Company<h1>
             <form method="POST" action="{{ route('companies.update', $company) }}">
                 @csrf
                 @method('PATCH')
@@ -48,6 +48,7 @@
                 </div>
 
                 <button class="btn btn-primary" type="submit">Update</button>
+                <a class="btn btn-danger" href="{{ route('companies.show', $company)}}">Cancel</a>
             </form>
         </div>
     </div>
