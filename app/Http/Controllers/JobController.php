@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Repositories\Interfaces\JobRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
-//$this->authorize('view',auth()->user());
-
 class JobController extends Controller
 {
     private $jobRepository;

@@ -72,7 +72,8 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        return view('Companies.show', compact('company'));
+        $jobs = $company->jobs()->get();
+        return view('Companies.show', compact(['company', 'jobs']));
     }
 
     /**

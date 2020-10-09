@@ -2,37 +2,21 @@
 
 namespace App\Repositories\Interfaces;
 
+use App\Models\User;
+
 interface UserRepositoryInterface
 {
     /**
-     * returns all users
+     * Returns a user.
      * 
-     * @return mixed
+     * @param User $user
      */
-    public function all();
+    public function show(User $user);
 
     /**
-     * returns a user by it's ID
-     * @param int
+     * Delete a user.
+     * 
+     * @param User $user
      */
-    public function show(int $userId);
-
-    /**
-     * create a user
-     * @param array
-     */
-    public function create(array $newUser);
-
-    /**
-     * update a user by it's ID
-     * @param int
-     * @param array
-     */
-    public function update(int $userId, array $updatedUser);
-
-    /**
-     * delete a user by it's ID
-     * @param int
-     */
-    public function delete(int $userId);
+    public function delete(User $user);
 }

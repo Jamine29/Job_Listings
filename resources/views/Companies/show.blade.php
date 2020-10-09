@@ -34,7 +34,7 @@
 
         <div class="card" style="margin:0% 10% 2% 10%;">
             <div class="card-header">Jobs</div>
-                @foreach ($company->jobs()->get() as $job)
+                @foreach ($jobs as $job)
                     <div class="card-body">
                         <a href="{{ route('jobs.show', $job)}}">
                             <h5 class="card-title">{{ $job->title }}</h5>

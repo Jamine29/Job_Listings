@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container" style="margin:0% 10% 4% 10%;">
-        <a class="btn btn-primary" href="{{ route('jobs.create')}}">Add new Job</a>
-        <a class="btn btn-primary" href="{{ route('companies.create')}}">Add new Company</a>
         <h1 style="margin:2% 0;">Your Companies</h1>
         @foreach (auth()->user()->companies()->get() as $company)
             <div class="card" style="margin-bottom:4%;">

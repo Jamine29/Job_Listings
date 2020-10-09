@@ -13,7 +13,7 @@ class JobPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param  User  $user
      * @return mixed
      */
     public function viewAny(User $user=null)
@@ -24,8 +24,8 @@ class JobPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Job $job
+     * @param  User  $user
+     * @param  Job $job
      * @return mixed
      */
     
@@ -37,7 +37,7 @@ class JobPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param  User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -48,8 +48,8 @@ class JobPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Job  $job
+     * @param  User  $user
+     * @param  Job  $job
      * @return mixed
      */
     public function update(User $user, Job $job)
@@ -60,8 +60,8 @@ class JobPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Job  $job
+     * @param  User  $user
+     * @param  Job  $job
      * @return mixed
      */
     public function delete(User $user, Job $job)
@@ -72,8 +72,8 @@ class JobPolicy
     /**
      * Determine whether the user is a manager of the company.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Job  $job
+     * @param  User  $user
+     * @param  Job  $job
      * @return mixed
      */
     public function isManager(User $user, Job $job)
