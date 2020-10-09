@@ -29,7 +29,7 @@ class JobPolicy
      * @return mixed
      */
     
-    public function view(User $user, Job $job) 
+    public function view(User $user=null, Job $job) 
     {
         return true;
     }

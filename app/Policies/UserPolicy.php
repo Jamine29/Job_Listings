@@ -61,6 +61,6 @@ class UserPolicy
      */
     public function delete(User $user)
     {
-        return auth()->check();
+        return false;
     }
 }

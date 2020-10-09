@@ -10,8 +10,3 @@
 | contains the "auth" middleware group. Now create something great!
 |
 */
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// jobs
-//Route::delete('/jobs/{jobId}/', [JobController::class, 'destroy'])->name('jobs.destroy');

@@ -1,25 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
-        <h1>List Companies</h1>
-        <a href="{{ route('companies.create')}}">Create</a>
-        <p>count companies: {{count($companies)}}</p>
+    <div style="margin:0% 10% 4% 10%;">
+        <h1 style="margin-bottom:4%;">Companies</h1>
         @foreach ($companies as $company)
-            @can('view-any', $company)
-            <p>{{ $company->id }}</p>
-            <p>{{ $company->company_name }}</p>
-            <p>{{ $company->number_of_employees }}</p>
-            <p>{{ $company->email }}</p>
-            <a href="{{ route('companies.show', $company->id )}}">Show</a>
-            <a href="{{ route('companies.edit', $company->id )}}">Edit</a>
-            
-            <form action="{{ route('companies.destroy', $company->id) }}" method="post">
-                @csrf
-                @method('DELETE')
-                <button type=submit>DELETE</button>
-            </form>
-            @endcan
+            <div class="card" style="margin-bottom:4%;">
+                <div class="card-body">
+                    <a href="{{ route('companies.show', $company)}}">
+                        <h5 class="card-title">{{ $company->name }}</h5>
+                    </a>
+                    <p>{{ $company->description }}</p>
+                    <a class="btn btn-primary" href="{{ route('companies.show', $company->id )}}">Show Company</a>
+                </div>
+            </div>
         @endforeach
-    </div>   
+    </div>
 @endsection
