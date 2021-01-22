@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
+use App\Repository\CompanyRepository;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
-
 
 class CompanyController extends Controller
 {
     private $companyRepository;
 
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    public function __construct(CompanyRepository $companyRepository)
     {
-        $this->authorizeResource(Company::class, 'company');
+        $this->authorizeResource(Company::class);
+
         $this->companyRepository = $companyRepository;
     }
 
@@ -24,100 +25,59 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = $this->companyRepository->all();
-        return view('Companies.all', compact('companies'));
-    }
+        $companies = Company::paginate();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('Companies.create');
+        return response($companies);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return  \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $newCompany = $request->validate([
-            'name' => 'required|string|min:1|max:150',
-            'description' => 'required|string|min:1|max:250',
-            'address' => 'required|string|min:1|max:150',
-            'email' => 'required|email|unique:companies,email'
-        ]);
+        $data = $this->validate($request, Job::validationRules());
 
-        $createdCompanyId = $this->companyRepository->create($newCompany)->id;
-        auth()->user()->companies()->attach($createdCompanyId, ['isManager' => 1]);
+        $model = Job::create($data);
 
-        if($createdCompanyId !== null) {
-            return redirect('/companies/'.$createdCompanyId)->with('success', 'Company sucssesfully created');
-        }
-        else {
-            return back()->withErrors()->withInput();
-        }
+        return response($model);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Company  $companyId
+     * @param  Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(Job $job)
     {
-        $jobs = $company->jobs()->get();
-        return view('Companies.show', compact(['company', 'jobs']));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        return view('Companies.edit', compact('company'));
+        return response($job);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Company  $company
+     * @param  Job $job
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, Job $job)
     {
-        $updatedCompany = $request->validate([
-            'name' => 'required|string|min:1|max:150',
-            'description' => 'required|string|min:1|max:250',
-            'address'=> 'required|string|min:1|max:150',
-            'email' => 'required|email|unique:companies,email,'.$company->email.',email'
-        ]);
+        $data = $this->validate($request, Job::valitationRules());
 
-        $this->companyRepository->update($company, $updatedCompany);
-
-        return redirect('/companies/'.$company->id)->with('success', 'Company successfully updated.');
+        return response(['success' => $job->update($data)]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Company  $company
+     * @param  Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Job $job)
     {
-        $company->users()->detach();
-        $this->companyRepository->delete($company);
-        return redirect('/home')->with('success', 'Company successfully deleted.');
+        response(['success' => $job->delete()]);
     }
 }
