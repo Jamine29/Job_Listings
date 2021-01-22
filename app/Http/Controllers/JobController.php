@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\JobRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Job;
+use App\Repositories\JobRepository;
 
 class JobController extends Controller
 {
     private $jobRepository;
 
-    public function __construct(JobRepositoryInterface $jobRepository)
+    public function __construct(JobRepository $jobRepository)
     {
-        $this->authorizeResource(Job::class, 'job');
+        $this->authorizeResource(Job::class);
+
         $this->jobRepository = $jobRepository;
     }
 
@@ -24,18 +24,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = $this->jobRepository->all();
-        return view('Jobs.all', compact('jobs'));
-    }
+        $jobs = Job::paginate(2);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('Jobs.create');
+        return response($jobs);
     }
 
     /**
@@ -46,20 +37,11 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        $newJob = $request->validate([
-            'title' => 'required|string|min:2|max:150',
-            'description' => 'required|string|min:2|max:250',
-            'companyId' => 'required|integer' 
-        ]);
-        
-        $createdJobId = $this->jobRepository->create($newJob)->id;;
+        $data = $this->validate($request, Job::validationRules());
 
-        if($createdJobId !== null) {
-            return redirect('/jobs/'.$createdJobId)->with('success', 'Job sucssesfully created');
-        }
-        else {
-            return back()->withErrors()->withInput();
-        }
+        $model = Job::create($data);
+
+        return response($model);
     }
 
     /**
@@ -70,49 +52,31 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        $company=$job->company()->get()[0];
-        return view('Jobs.show', compact(['job','company']));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Job $job)
-    {
-        return view('Jobs.edit', compact('job'));
+        return response($job);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Job  $job
+     * @param  Job $job
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Job $job)
     {
-        $updatedJob = $request->validate([
-            'title' => 'required|string|min:2|max:150',
-            'description' => 'required|string|min:2|max:250',
-            'companyId' => 'required|integer'
-        ]);
+        $data = $this->validate($request, Job::validationsRules());
 
-        $this->jobRepository->update($job, $updatedJob);
-        return redirect('/jobs/'.$job->id)->with('success', 'Job successfully updated.');
+        return response(['success' => $job->update($data)]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Job  $job
+     * @param  Job  $job
      * @return \Illuminate\Http\Response
      */
     public function destroy(Job $job)
     {
-        $this->jobRepository->delete($job);
-        return redirect('/home')->with('success', 'Job successfully deleted.');
+        return response(['success' => $job->delete()]);
     }
 }
